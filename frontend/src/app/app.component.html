@@ -35,7 +35,7 @@
             </button>
             <button
               class="assign-button"
-              [disabled]="comment.assignedTo.trim() !== ''"
+              [disabled]="comment.id === 0"
               (click)="toggleDropdown(comment)"
             >
               Assign
@@ -44,7 +44,10 @@
           <div
             class="assigned-to"
             [ngStyle]="{
-              display: comment.assignedTo.trim() === '' ? 'none' : ''
+              display:
+                comment.assignedTo.trim() === '' || comment.showDropdown
+                  ? 'none'
+                  : ''
             }"
           >
             <span>Assigned to:</span>
