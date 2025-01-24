@@ -6,11 +6,12 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
   constructor() {}
+  private baseUrl = 'http://localhost:3000/';
+  private isProduction = true;
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -18,10 +19,10 @@ export class AppInterceptor implements HttpInterceptor {
     if (
       !request.url.startsWith('http') &&
       !request.url.startsWith('//') &&
-      !environment.isProduction
+      !this.isProduction
     ) {
       const modifiedRequest = request.clone({
-        url: `${environment.baseUrl}${request.url}`,
+        url: `${this.baseUrl}${request.url}`,
       });
       return next.handle(modifiedRequest);
     }
