@@ -22,7 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit(): void {
     this.loaderService.show();
-    this.comments.push(this.exampleComment());
     this.subscriptions.push(
       this.service.getAllComments().subscribe({
         next: (res) => {
@@ -115,16 +114,5 @@ export class AppComponent implements OnInit, OnDestroy {
       );
       this.newComment = '';
     }
-  }
-  private exampleComment(): Comment {
-    return {
-      id: 0,
-      section: 'Section1',
-      text: 'Default comment text',
-      commentText: `In today's fast-paced world, technology plays a crucial role in shaping how we interact, work, and live. Innovations in the tech industry have transformed nearly every aspect of society, from communication to education, business, and healthcare. With the advent of the internet, people across the globe are now more connected than ever before. Social media platforms allow individuals to share ideas, connect with others, and build communities. On the other hand, businesses have also embraced technological advancements to streamline operations and enhance customer experiences. Automation, artificial intelligence, and data analytics are just a few of the tools companies use to stay competitive in an ever-evolving market. In healthcare, technology has made significant strides, improving diagnostic capabilities, enabling telemedicine, and creating personalized treatment options. The rise of smart devices has further transformed daily life, making tasks easier and more efficient. Yet, with all the benefits technology offers, it also presents challenges. Issues such as data privacy, cybersecurity, and the digital divide continue to be pressing concerns. As society becomes increasingly dependent on technology, it is essential to address these challenges while ensuring that innovation remains inclusive and beneficial to all. While the future promises even greater advancements, it is important to consider both the potential benefits and the potential risks of new technologies. With thoughtful planning and regulation, we can navigate this technological landscape in a way that enhances our lives and preserves our values.`,
-      likes: 1,
-      showDropdown: false,
-      assignedTo: 'John Doe',
-    };
   }
 }
