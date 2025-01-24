@@ -2,8 +2,6 @@ const router = require('express').Router();
 const { sendEmail } = require('./mail.service');
 const sql = require('mssql');
 const { config } = require('./mssql.db');
-
-// Get comments with assigned assignee name
 router.get('/comments', async (req, res) => {
     let connection;
     try {
@@ -27,23 +25,18 @@ router.get('/comments', async (req, res) => {
     }
 });
 
-// Add a new comment
 router.post('/comments', async (req, res) => {
     const { commentText } = req.body;
     let connection;
     try {
         connection = await sql.connect(config);
-        const insertQuery = `
-            INSERT INTO comments (text) 
-            VALUES (@commentText)
-        `;
         const result = await connection.request()
             .input('commentText', sql.NVarChar, commentText)
-            .query(insertQuery);
+            .execute('InsertComment');
 
         res.status(201).json({
             message: 'Comment added successfully',
-            comments: result.recordset
+            comments: { ...result.recordset[0], assignedTo: '' }
         });
     } catch (err) {
         res.status(500).json({
@@ -54,8 +47,6 @@ router.post('/comments', async (req, res) => {
         connection?.close();
     }
 });
-
-// Like a comment
 router.patch('/comments/:id/like', async (req, res) => {
     const commentId = req.params.id;
     let connection;
@@ -83,7 +74,6 @@ router.patch('/comments/:id/like', async (req, res) => {
     }
 });
 
-// Assign a comment to an assignee
 router.patch('/comments/:id/assign', async (req, res) => {
     const commentId = req.params.id;
     const { assignedTo, comment } = req.body;
@@ -129,8 +119,6 @@ router.patch('/comments/:id/assign', async (req, res) => {
         connection?.close();
     }
 });
-
-// Get list of assignees
 router.get('/assignees', async (req, res) => {
     let connection;
     try {

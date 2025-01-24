@@ -1,0 +1,69 @@
+<app-loader></app-loader>
+<main>
+  <div class="document">
+    <h2>Document</h2>
+    <p>
+      AI is transforming the insurance industry by addressing key challenges
+      such as slow claims processing, fraud detection, and inefficient customer
+      support. Automated systems powered by AI significantly reduce claims
+      processing time, improving customer satisfaction. Machine learning
+      algorithms enhance fraud detection by analyzing large datasets to identify
+      suspicious activities. AI chatbots provide personalized customer service,
+      offering tailored policy recommendations and round-the-clock assistance.
+      AI also improves risk assessment by using predictive analytics to evaluate
+      historical and real-time data, allowing insurers to create better policies
+      and reduce losses. Predictive models help insurers anticipate customer
+      behavior, improving retention and renewals. By automating processes and
+      enabling data-driven decisions, AI enhances operational efficiency and
+      ensures more personalized insurance solutions, creating a smarter,
+      customer-centric future for the industry.
+    </p>
+  </div>
+  <div class="comments">
+    <h2>Comments</h2>
+    <div class="comments-container">
+      <div *ngFor="let comment of comments" class="comment-card">
+        <h4 class="m-0">{{ comment.section }}: {{ comment.text }}</h4>
+        <p class="comments-text">{{ comment.commentText }}</p>
+        <div class="assign-dropdown-panel">
+          <div>
+            <button
+              class="like-button"
+              (click)="comment.id !== 0 ? toggleLike(comment) : ''"
+            >
+              👍 <span>{{ comment.likes }}</span>
+            </button>
+            <button
+              class="assign-button"
+              [disabled]="comment.assignedTo.trim() !== ''"
+              (click)="toggleDropdown(comment)"
+            >
+              Assign
+            </button>
+          </div>
+          <div
+            class="assigned-to"
+            [ngStyle]="{
+              display: comment.assignedTo.trim() === '' ? 'none' : ''
+            }"
+          >
+            <span>Assigned to:</span>
+            <button>{{ comment.assignedTo }}</button>
+          </div>
+          <div *ngIf="comment.showDropdown" class="assign-dropdowns">
+            <button
+              *ngFor="let assignee of asignees"
+              (click)="assignComment(comment, assignee)"
+            >
+              {{ assignee.name }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="add-comment">
+      <textarea [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
+      <button (click)="addComment()">Add Comment</button>
+    </div>
+  </div>
+</main>

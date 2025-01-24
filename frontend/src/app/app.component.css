@@ -1,0 +1,32 @@
+.assign-dropdowns {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    margin-top: 10px;
+    z-index: 10;
+}
+
+.assign-dropdowns button {
+    display: block;
+    padding: 5px 10px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.assign-dropdowns button:hover {
+    background-color: #f1f1f1;
+}
+
+.assigned-to {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.comments-container {
+    height: 318px;
+    overflow-y: scroll;
+}
