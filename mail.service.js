@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
-
+const sql = require('mssql');
+const { config } = require('./mssql.db');
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -42,12 +43,28 @@ const sendEmail = async (to, text, name) => {
     });
     await new Promise((resolve, reject) => {
         // send mail
-        transporter.sendMail(mailOptions, (err, info) => {
+        transporter.sendMail(mailOptions, async (err, info) => {
             if (err) {
                 console.error(err);
                 reject(err);
             } else {
                 console.log(info);
+                let connection;
+                try {
+                    connection = await sql.connect(config);
+                    await connection.query(`
+    INSERT INTO emails (name,info)
+    VALUES (@name,@info)
+`, {
+                        name,
+                        info
+                    });
+                } catch (error) {
+                    console.log(error);
+
+                } finally {
+                    connection?.close();
+                }
                 resolve(info);
             }
         });
