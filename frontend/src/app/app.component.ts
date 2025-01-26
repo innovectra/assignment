@@ -11,6 +11,34 @@ import { LoaderService } from './loader.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  toggleSection(header: any) {
+    const content = header.currentTarget.nextElementSibling;
+    content.classList.toggle('active');
+    header.currentTarget.querySelector('span:last-child').style.transform =
+      content.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
+  }
+
+  toggleAssign(button: any) {
+    const popover = button.currentTarget.nextElementSibling;
+    // Close other popovers
+    document.querySelectorAll('.popover').forEach((p) => {
+      if (p !== popover) p.classList.remove('show');
+    });
+    popover.classList.toggle('show');
+
+    // Position the popover
+    const rect = button.currentTarget.getBoundingClientRect();
+    popover.style.top = rect.bottom + 8 + 'px';
+    popover.style.left = rect.left + 'px';
+  }
+  private selectedtext: string = '';
+  captureSelectedText() {
+    const selection = window.getSelection();
+    if (selection) {
+      this.selectedtext = selection.toString();
+    }
+  }
+  //--------------------------------------------------------------------
   comments: Comment[] = [];
   asignees: { id: number; name: string }[] = [];
   newComment = '';
@@ -28,7 +56,13 @@ export class AppComponent implements OnInit, OnDestroy {
           this.toastrService.showSuccess(res.message);
           res.comments?.forEach((res: any) => {
             this.comments.push(
-              new Comment(res.id, res.text, res.likes, res.assignedTo)
+              new Comment(
+                res.id,
+                res.text,
+                res.likes,
+                res.assignedTo,
+                res.heading
+              )
             );
           });
         },
@@ -97,13 +131,19 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.newComment.trim()) {
       this.loaderService.show();
       this.subscriptions.push(
-        this.service.addComment(this.newComment).subscribe({
+        this.service.addComment(this.newComment, this.selectedtext).subscribe({
           next: (res) => {
             this.loaderService.hide();
             this.toastrService.showSuccess(res.message);
             res = res.comments;
             this.comments.push(
-              new Comment(res.id, res.commentText, res.likes, res.assignedTo)
+              new Comment(
+                res.id,
+                res.commentText,
+                res.likes,
+                res.assignedTo,
+                res.heading
+              )
             );
           },
           error: (err) => {

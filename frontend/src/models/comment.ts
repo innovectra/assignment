@@ -10,12 +10,14 @@ export class Comment {
     id: number,
     commentText: string,
     likes: number,
-    assignedTo: string
+    assignedTo: string,
+    heading: string
   ) {
     this.id = id;
     this.section += id;
     this.commentText = commentText;
     this.likes = likes;
     this.assignedTo = assignedTo;
+    this.text = heading;
   }
 }

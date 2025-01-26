@@ -1,31 +1,38 @@
 @import 'ngx-toastr/toastr';
 
-body {
-    height: 100%;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
+:root {
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --bg-light: #f5f7f5;
+    --text-dark: #064e3b;
 }
 
-html {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html,
+body {
+    background: var(--bg-light);
+    min-height: 100vh;
     height: 100%;
 }
 
 /* Header Styles */
 header {
-    height: 50px;
+    height: 60px;
     background-color: #2c3e50;
     color: white;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0 20px;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header img {
@@ -34,170 +41,22 @@ header img {
 }
 
 header h1 {
-    font-size: 1.5rem;
-    margin: 0;
+    margin: 0 !important;
 }
 
-.m-0 {
-    margin: 0px;
-}
-
-/* Main Content Layout */
-main {
-    flex: 1;
-    height: calc(100%-(80px));
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 20px;
-}
-
-.comments-text {
-    width: 100%;
-    font-size: 12px;
-    max-height: 70px;
-    overflow-y: scroll;
-}
-
-::-webkit-scrollbar {
-    width: 7px;
-    border-radius: 6px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-
-.assign-dropdown-panel {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;
-}
-
-/* Document Section */
-.document {
-    flex: 1;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.document h2 {
-    margin-top: 0;
-}
-
-/* Comments Section */
-.comments {
-    flex: 1.2;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.comments h2 {
-    margin-top: 0;
-}
-
-.assign-dropdowns {
-    display: flex;
-}
-
-.comment-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.comment-card button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.like-button {
-    background-color: #3498db;
-    color: white;
-}
-
-.assign-button {
-    background-color: #2ecc71;
-    color: white;
-}
-
-.assign-dropdown {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    display: none;
-}
-
-.assign-dropdown button {
-    display: block;
-    width: 100%;
-    padding: 5px;
-    border: none;
-    background: none;
-    text-align: left;
-    cursor: pointer;
-}
-
-.assign-dropdown button:hover {
-    background-color: #f4f4f9;
-}
-
-/* Comment Input */
-.add-comment {
-    margin-top: 20px;
-}
-
-.add-comment textarea {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    min-height: 70px;
-    padding: 10px;
-    resize: none;
-    margin-left: -5px;
-    margin-bottom: 10px;
-}
-
-.add-comment button {
-    padding: 10px 15px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Footer Styles */
 footer {
-    height: 30px;
     background-color: #2c3e50;
     color: white;
-    text-align: center;
-    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
     margin-top: auto;
-    bottom: 0;
-    width: 100%;
+    /* Push footer to the bottom */
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
 }

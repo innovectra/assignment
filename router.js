@@ -7,7 +7,7 @@ router.get('/comments', async (req, res) => {
     try {
         connection = await sql.connect(config);
         const result = await connection.query(`
-            SELECT c.id,c.text,c.likes, COALESCE(a.name, '') AS assignedTo 
+            SELECT c.id,c.text,c.likes,c.heading, COALESCE(a.name, '') AS assignedTo 
             FROM comments c 
             LEFT JOIN assignees a ON a.id = c.assignedTo
         `);
@@ -26,12 +26,13 @@ router.get('/comments', async (req, res) => {
 });
 
 router.post('/comments', async (req, res) => {
-    const { commentText } = req.body;
+    const { commentText, heading } = req.body;
     let connection;
     try {
         connection = await sql.connect(config);
         const result = await connection.request()
             .input('commentText', sql.NVarChar, commentText)
+            .input('heading', sql.NVarChar, heading)
             .execute('InsertComment');
 
         res.status(201).json({
@@ -104,7 +105,7 @@ router.patch('/comments/:id/assign', async (req, res) => {
             return;
         }
 
-        sendEmail(assignee.email, comment);
+        sendEmail(assignee.email, comment, assignee.name);
 
         res.status(200).json({
             message: 'Assignee updated and email sent successfully',

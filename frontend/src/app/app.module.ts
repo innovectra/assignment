@@ -7,6 +7,16 @@ import { AppInterceptor } from './app.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { LoaderComponent } from './loader/loader.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [AppComponent, LoaderComponent],
@@ -16,6 +26,16 @@ import { LoaderComponent } from './loader/loader.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatInputModule,
+    MatMenuModule,
     ToastrModule.forRoot(),
   ],
   providers: [
