@@ -153,6 +153,7 @@ export class AppComponent implements OnInit, OnDestroy {
         })
       );
       this.newComment = '';
+      this.selectedtext = '';
     }
   }
 }
