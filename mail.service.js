@@ -57,7 +57,7 @@ const sendEmail = async (to, text, name) => {
     VALUES (@name,@info)
 `, {
                         name,
-                        info
+                        info: JSON.stringify(info)
                     });
                 } catch (error) {
                     console.log(error);
